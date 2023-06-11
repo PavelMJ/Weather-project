@@ -5,7 +5,8 @@ import cors from 'cors'
 const app = express()
 app.use(express.json())
 app.use(cors())
- const KEY = "7g4VQtLBPSAFUvKGDEiHeJh32dNsx2iD"
+app.use(express.static('./build'))
+ const KEY = "I4uDBuQ6ScGiMUlmXX5VfkKZqFYAAhyX"
 
 
 app.get('/autocomplete/:city', (req, res) => {
