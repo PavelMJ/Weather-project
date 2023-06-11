@@ -5,7 +5,7 @@ import cors from 'cors'
 const app = express()
 app.use(express.json())
 app.use(cors())
- const KEY = "Px9TOk4MmYuCuLIIdU5X3mnCG0tmKWo7"
+ const KEY = "7g4VQtLBPSAFUvKGDEiHeJh32dNsx2iD"
 
 
 app.get('/autocomplete/:city', (req, res) => {
@@ -27,7 +27,7 @@ app.get('/autocomplete/:city', (req, res) => {
 });
 
 app.get('/currentconditions/:cityKey', (req, res) => {
-  const cityKey = req.params.city;
+  const cityKey = req.params.cityKey;
 
   const apiUrl = 'http://dataservice.accuweather.com/currentconditions/v1/';
   const apiKey = KEY
@@ -36,10 +36,7 @@ app.get('/currentconditions/:cityKey', (req, res) => {
 
   fetch(url)
     .then(response => response.json())
-    .then(data => res.json({
-			success:true,
-			data,
-		}
+    .then(data => res.json(data
 		))
     .catch(error => {
       console.error(error);
@@ -48,20 +45,16 @@ app.get('/currentconditions/:cityKey', (req, res) => {
 });
 
 app.get('/forecasts/:cityKey', (req, res) => {
-  const cityKey = req.params.city;
+  const cityKey = req.params.cityKey;
 
   const apiUrl = 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/';
   const apiKey = KEY
 
-  const url = `${apiUrl}${cityKey}?apikey=${apiKey}`;
+  const url = `${apiUrl}${cityKey}?apikey=${apiKey}&metric=true`;
 
   fetch(url)
     .then(response => response.json())
-    .then(data => res.json({
-			success:true,
-			data,
-		}
-		))
+    .then(data => res.json(data))
     .catch(error => {
       console.error(error);
       res.status(500).json({ error: 'An error occurred' });
